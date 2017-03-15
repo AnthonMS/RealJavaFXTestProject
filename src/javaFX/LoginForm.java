@@ -1,12 +1,16 @@
+package javaFX;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import accountHandling.*;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +19,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -27,6 +30,9 @@ import javafx.stage.Stage;
  */
 public class LoginForm extends Application
 {
+
+    AccountHandling accountHandler = AccountHandling.getInstance();
+    ArrayList<Account> accArray = accountHandler.getAccArray();
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -81,16 +87,51 @@ public class LoginForm extends Application
 
         loginPane.setGridLinesVisible(true);
 
-        Stage stage2 = new Stage();
-        stage2.setTitle("Beyond the great door of Sesam");
-        stage2.setScene(scene2);
-        stage2.show();
+        primaryStage.setTitle("Beyond the great door of Sesam");
+        primaryStage.setScene(scene2);
+        primaryStage.show();
 //  ------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------
 //      ######      This is the logic for the Login Button      #########
 //  ------------------------------------------------------------------------------------
 
-        
+        loginBtn.setOnAction((ActionEvent event) ->
+        {
+            String nameField, passField, name, pass;
+            nameField = userField.getText();
+            passField = pswdField.getText();
+
+            for (int i = 0; i < accArray.size(); i++)
+            {
+                Account acc = accArray.get(i);
+                name = acc.getUsrName();
+                pass = acc.getPswd();
+
+                if (passField.equals(pass)
+                        && nameField.equals(name))
+                {
+                    System.out.println("Your Login was succesfull, hopefully.");
+
+                    AccountScreen accScreen = new AccountScreen();
+                    Stage stage2 = new Stage();
+
+                    try
+                    {
+                        accScreen.start(stage2);
+                    } catch (Exception ex)
+                    {
+                        Logger.getLogger(JavaFXTestProject.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println("Something went wrong with the Exception...");
+                    }
+
+                    break;
+                } else
+                {
+                    System.out.println("Your login attempt went unsuccessful...");
+                }
+            }
+        });
+
     }
 
 }

@@ -1,3 +1,5 @@
+package accountHandling;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,11 +15,12 @@ import java.util.ArrayList;
 public class AccountHandling
 {
     private static AccountHandling accHandling = new AccountHandling();
-    private final ArrayList<Account> accArray = new ArrayList<>();
+    private final ArrayList<Account> accArray;
     
     
     private AccountHandling()
     {
+        accArray = new ArrayList<>();
         init();
     }
     

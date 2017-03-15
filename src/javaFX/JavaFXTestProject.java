@@ -1,3 +1,5 @@
+package javaFX;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -79,7 +81,7 @@ public class JavaFXTestProject extends Application
         pane.add(area, 0, 1);
         pane.add(clickMe, 2, 2);
         pane.add(openSesam, 2, 0);
-        pane.setGridLinesVisible(true);
+        pane.setGridLinesVisible(false);
 
         // This is here I "make" the primaryStage.
         // (In some way it is already made. Just putting title and telling it to show)
